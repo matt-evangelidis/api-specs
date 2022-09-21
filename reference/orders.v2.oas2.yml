@@ -4632,14 +4632,20 @@ components:
         variant_id:
           type: integer
           description: '""'
+        wrapping_id:
+          type: integer
+          description: 'ID of gift wrapping to be used for this product. When provided, `wrapping_cost_ex_tax` and `wrapping_cost_inc_tax` are required. When updating an order product line item, if `wrapping_id` is set to `0` and no other wrapping fields are provided, wrapping will be removed from the order product'
         wrapping_name:
           type: string
+          description: 'If `wrapping_id` is provided, this will automatically be populated with the name of the gift wrapping to be used'
         wrapping_message:
           type: string
         wrapping_cost_ex_tax:
           type: number
+          description: 'When provided, this value should be equal to `wrapping_cost_ex_tax` times quantity to accurately reflect wrapping cost per unit'
         wrapping_cost_inc_tax:
           type: number
+          description: 'When provided, this value should be equal to `wrapping_cost_inc_tax` times quantity to accurately reflect wrapping cost per unit'
       x-internal: false
     orderCustomProduct_Post:
       title: orderCustomProduct_Post
@@ -4714,8 +4720,8 @@ components:
               type: array
               items:
                 anyOf:
-                  - $ref: '#/components/schemas/orderCustomProduct_Post'
                   - $ref: '#/components/schemas/orderCatalogProduct_Post'
+                  - $ref: '#/components/schemas/orderCustomProduct_Post'
             shipping_addresses:
               type: array
               items:
